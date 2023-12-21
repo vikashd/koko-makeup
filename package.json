@@ -6,22 +6,35 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "_ctf_types": "cf-content-types-generator -s i38esbkhsttk -t \"$CTF_TYPES_TOKEN\" -o src/schema -X -g",
+    "ctf-types": "dotenv -c -- npm run _ctf_types"
   },
   "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "13.5.4"
+    "@headlessui/react": "^0.0.0-insiders.c2096b0",
+    "@types/nodemailer": "^6.4.14",
+    "cf-content-types-generator": "^2.12.9",
+    "classnames": "^2.3.2",
+    "contentful": "^10.6.14",
+    "framer-motion": "^10.16.16",
+    "iconoir-react": "^7.1.0",
+    "next": "^14.0.4",
+    "nodemailer": "^6.9.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-responsive": "^9.0.2",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
     "autoprefixer": "^10",
-    "postcss": "^8",
-    "tailwindcss": "^3",
+    "dotenv-cli": "^7.3.0",
     "eslint": "^8",
-    "eslint-config-next": "13.5.4"
+    "eslint-config-next": "^14.0.4",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5"
   }
 }

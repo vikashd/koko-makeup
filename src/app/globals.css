@@ -17,11 +17,15 @@
 }
 
 body {
+  font-family: var(--font-serif);
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: theme("backgroundColor.blue.950");
+}
+
+.hero {
+  background-image: url(/hero-1080x720.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
 }
