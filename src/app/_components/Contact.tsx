@@ -2,11 +2,40 @@
 
 import cx from "classnames";
 import { useFormState, useFormStatus } from "react-dom";
-import { submitContactForm } from "@/app/_utils/actions/submitContactForm";
+import { useMemo } from "react";
+import {
+  submitContactForm,
+  type EmailFormErrors,
+  type SubmitResponse,
+} from "@/app/_utils/actions/submitContactForm";
 
-const initialState = {
-  type: "",
+const initialState: SubmitResponse = {
+  type: "valid",
 };
+
+function withErrors({ errors }: { errors?: EmailFormErrors }) {
+  return function FieldError({
+    id,
+  }: {
+    id: keyof Omit<EmailFormErrors, "_errors">;
+  }) {
+    if (!errors?.[id]) {
+      return null;
+    }
+
+    const { _errors } = errors[id]!;
+
+    return (
+      <div>
+        {_errors.map((error, i) => (
+          <p key={i} className="px-4 pt-2 text-sm text-red-500">
+            {error}
+          </p>
+        ))}
+      </div>
+    );
+  };
+}
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -27,13 +56,34 @@ function SubmitButton() {
 export function Contact() {
   const [state, formAction] = useFormState(submitContactForm, initialState);
 
+  const FieldError = useMemo(() => {
+    if (state.type === "invalid") {
+      return withErrors({ errors: state.validated });
+    }
+
+    return null;
+  }, [state]);
+
   if (state.type === "submitted") {
-    return <div>Submitted</div>;
+    return (
+      <div className="max-w-screen-md">
+        <p>Thanks for your message! I&lsquo;ll be in touch soon.</p>
+      </div>
+    );
   }
 
   return (
     <div className="max-w-screen-md">
-      <form className="flex flex-col mb-6" action={formAction} noValidate>
+      <p className="mb-4">
+        For general enquiries please feel free to contact me and I&lsquo;ll aim
+        to get back to you within 24&nbsp;hours.
+      </p>
+      <p className="mb-4">Alternatively you can call me on +44 7903 444712.</p>
+      <form
+        className="flex flex-col mt-10 mb-24"
+        action={formAction}
+        noValidate
+      >
         <div className="md:grid md:grid-cols-2 md:gap-4">
           <div className="mb-4">
             <label className="block text-lg ml-4 pb-2" htmlFor="name">
@@ -43,9 +93,16 @@ export function Contact() {
               type="text"
               id="name"
               name="name"
-              className="px-4 py-4 w-full rounded-md border border-solid border-blue-500 bg-transparent"
+              className={cx(
+                "px-4 py-4 w-full rounded-md border border-solid border-blue-500 bg-transparent",
+                {
+                  "border-red-500":
+                    state.type === "invalid" && state.validated.name,
+                }
+              )}
               required
             />
+            {FieldError && <FieldError id="name" />}
           </div>
           <div className="mb-4">
             <label className="block text-lg ml-4 pb-2" htmlFor="email">
@@ -55,23 +112,44 @@ export function Contact() {
               type="text"
               id="email"
               name="email"
-              className="px-4 py-4 w-full rounded-md border border-solid border-blue-500 bg-transparent"
+              className={cx(
+                "px-4 py-4 w-full rounded-md border border-solid border-blue-500 bg-transparent",
+                {
+                  "border-red-500":
+                    state.type === "invalid" && state.validated.email,
+                }
+              )}
               required
             />
+            {FieldError && <FieldError id="email" />}
           </div>
         </div>
-        <div className="mb-4">
+        <div className="mb-6">
           <label className="block text-lg ml-4 pb-2" htmlFor="message">
             Message
           </label>
           <textarea
             id="message"
             name="message"
-            className="px-4 py-4 w-full rounded-md border border-solid border-blue-500 bg-transparent"
+            className={cx(
+              "block px-4 py-4 w-full rounded-md border border-solid border-blue-500 bg-transparent",
+              {
+                "border-red-500":
+                  state.type === "invalid" && state.validated.message,
+              }
+            )}
             required
           />
+          {FieldError && <FieldError id="message" />}
         </div>
         <SubmitButton />
+        {state.type === "error" && (
+          <div className="p-4 mt-4 rounded-md bg-red-500 text-white text-sm">
+            <p>
+              There was an error trying to send your message. Please try again.
+            </p>
+          </div>
+        )}
       </form>
     </div>
   );

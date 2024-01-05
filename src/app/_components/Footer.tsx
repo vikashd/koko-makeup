@@ -14,7 +14,7 @@ export function Footer() {
               <li>
                 <Link href="/contact" className="inline-flex items-center">
                   <Mail className="flex-shrink-0 mr-2" />{" "}
-                  <span className="text-sm">Email</span>
+                  <span className="text-sm">Contact</span>
                 </Link>
               </li>
               <li>
