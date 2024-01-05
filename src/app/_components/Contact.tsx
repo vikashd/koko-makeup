@@ -2,12 +2,13 @@
 
 import cx from "classnames";
 import { useFormState, useFormStatus } from "react-dom";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   submitContactForm,
   type EmailFormErrors,
   type SubmitResponse,
 } from "@/app/_utils/actions/submitContactForm";
+import { EmailForm, schema } from "@/app/_utils/sendEmail";
 
 const initialState: SubmitResponse = {
   type: "valid",
@@ -55,6 +56,9 @@ function SubmitButton() {
 
 export function Contact() {
   const [state, formAction] = useFormState(submitContactForm, initialState);
+  const [dirty, setDirty] = useState<{ [key in keyof EmailForm]?: boolean }>(
+    {}
+  );
 
   const FieldError = useMemo(() => {
     if (state.type === "invalid") {
@@ -63,6 +67,17 @@ export function Contact() {
 
     return null;
   }, [state]);
+
+  const onInputChangeHandler = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name } = e.target;
+    const result = schema
+      .pick({ [name]: true })
+      .safeParse({ [name]: e.target.value });
+
+    setDirty({ ...dirty, [name]: result.success });
+  };
 
   if (state.type === "submitted") {
     return (
@@ -97,12 +112,15 @@ export function Contact() {
                 "px-4 py-4 w-full rounded-md border border-solid border-blue-500 bg-transparent",
                 {
                   "border-red-500":
-                    state.type === "invalid" && state.validated.name,
+                    state.type === "invalid" &&
+                    state.validated.name &&
+                    !dirty.name,
                 }
               )}
+              onChange={onInputChangeHandler}
               required
             />
-            {FieldError && <FieldError id="name" />}
+            {FieldError && !dirty.name && <FieldError id="name" />}
           </div>
           <div className="mb-4">
             <label className="block text-lg ml-4 pb-2" htmlFor="email">
@@ -116,12 +134,15 @@ export function Contact() {
                 "px-4 py-4 w-full rounded-md border border-solid border-blue-500 bg-transparent",
                 {
                   "border-red-500":
-                    state.type === "invalid" && state.validated.email,
+                    state.type === "invalid" &&
+                    state.validated.email &&
+                    !dirty.email,
                 }
               )}
+              onChange={onInputChangeHandler}
               required
             />
-            {FieldError && <FieldError id="email" />}
+            {FieldError && !dirty.email && <FieldError id="email" />}
           </div>
         </div>
         <div className="mb-6">
@@ -135,12 +156,15 @@ export function Contact() {
               "block px-4 py-4 w-full rounded-md border border-solid border-blue-500 bg-transparent",
               {
                 "border-red-500":
-                  state.type === "invalid" && state.validated.message,
+                  state.type === "invalid" &&
+                  state.validated.message &&
+                  !dirty.message,
               }
             )}
+            onChange={onInputChangeHandler}
             required
           />
-          {FieldError && <FieldError id="message" />}
+          {FieldError && !dirty.message && <FieldError id="message" />}
         </div>
         <SubmitButton />
         {state.type === "error" && (
