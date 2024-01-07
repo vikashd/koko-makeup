@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { GoogleCaptchaWrapper } from "@/app/_components/recaptcha/GoogleCaptchaWrapper";
+import { Spinner } from "@/app/_components/Loading";
 import {
   Notifications,
   type Notification,
@@ -50,13 +51,18 @@ function SubmitButton() {
 
   return (
     <button
-      className={cx("p-4 bg-blue-900 hover:bg-blue-800 rounded-md", {
-        "opacity-40": pending,
-      })}
+      className={cx(
+        "flex items-center justify-center p-4 mb-3 bg-blue-900 hover:bg-blue-800 rounded-md",
+        {
+          "bg-blue-900/40": pending,
+          "pointer-events-none": pending,
+        }
+      )}
       type="submit"
       aria-disabled={pending}
     >
-      Submit
+      {pending && <Spinner className="mr-2" />}
+      <span className={cx({ "opacity-40": pending })}>Submit</span>
     </button>
   );
 }
@@ -270,6 +276,25 @@ export function ContactForm() {
                 {FieldError && !dirty.message && <FieldError id="message" />}
               </div>
               <SubmitButton />
+              <small className="font-sans text-xs">
+                This site is protected by reCAPTCHA and the Google{" "}
+                <Link
+                  className="underline hover:underline-offset-2"
+                  href="https://policies.google.com/privacy"
+                  target="_blank"
+                >
+                  Privacy Policy
+                </Link>{" "}
+                and{" "}
+                <Link
+                  className="underline hover:underline-offset-2"
+                  href="https://policies.google.com/terms"
+                  target="_blank"
+                >
+                  Terms of Service
+                </Link>{" "}
+                apply.
+              </small>
               {state.type === "error" && (
                 <div className="p-4 mt-4 rounded-md bg-red-500 text-white text-sm">
                   <p>
@@ -279,25 +304,6 @@ export function ContactForm() {
                 </div>
               )}
             </form>
-            <small className="font-sans text-xs">
-              This site is protected by reCAPTCHA and the Google{" "}
-              <Link
-                className="underline hover:underline-offset-2"
-                href="https://policies.google.com/privacy"
-                target="_blank"
-              >
-                Privacy Policy
-              </Link>{" "}
-              and{" "}
-              <Link
-                className="underline hover:underline-offset-2"
-                href="https://policies.google.com/terms"
-                target="_blank"
-              >
-                Terms of Service
-              </Link>{" "}
-              apply.
-            </small>
           </>
         )}
       </div>
