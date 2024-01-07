@@ -29,7 +29,9 @@ export default async function Home() {
               neque placerat scelerisque. Aenean vitae tristique tortor.
             </p>
           </div>
-          <GallerySC firstRowOnly />
+          <div id="gallery" className="pt-16">
+            <GallerySC firstRowOnly />
+          </div>
         </div>
       )}
     </>

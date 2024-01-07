@@ -1,3 +1,4 @@
+import React from "react";
 import { Gallery } from "@/app/_components/Gallery";
 import { getGalleries } from "@/app/_ctf/getGalleries";
 
@@ -10,7 +11,7 @@ export default async function GallerySC({ firstRowOnly }: GallerySCProps) {
 
   return data.items.map(({ sys, fields: { galleries } }) => {
     return (
-      <div key={sys.id}>
+      <React.Fragment key={sys.id}>
         {galleries?.map((gallery) => {
           if (!gallery) {
             return null;
@@ -28,7 +29,7 @@ export default async function GallerySC({ firstRowOnly }: GallerySCProps) {
             />
           );
         })}
-      </div>
+      </React.Fragment>
     );
   });
 }
