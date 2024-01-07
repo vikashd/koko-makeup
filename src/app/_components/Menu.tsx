@@ -247,12 +247,16 @@ export function HeaderMenu({ sections, children }: HeaderMenu) {
                         key={sectionId}
                         className="flex flex-col gap-1 font-light text-xl mb-3"
                       >
-                        {sectionTitle &&
-                          (sectionUrl ? (
-                            <Link href={sectionUrl}>{sectionTitle}</Link>
-                          ) : (
-                            <div className="mb-3">{sectionTitle}</div>
-                          ))}
+                        <li className="mb-3">
+                          {sectionTitle &&
+                            (sectionUrl ? (
+                              <Link href={sectionUrl} className="text-2xl">
+                                {sectionTitle}
+                              </Link>
+                            ) : (
+                              <div className="text-2xl">{sectionTitle}</div>
+                            ))}
+                        </li>
                         {items?.map(({ id, title, url }) => {
                           return (
                             <li key={id}>
@@ -273,10 +277,12 @@ export function HeaderMenu({ sections, children }: HeaderMenu) {
                   }
                 )}
                 <ul className="font-light text-xl">
-                  <li>
+                  <li className="mb-3">
                     <Link
                       href="/contact"
-                      className={cx({ italic: pathname === "/contact" })}
+                      className={cx("text-2xl", {
+                        italic: pathname === "/contact",
+                      })}
                     >
                       Contact
                     </Link>
