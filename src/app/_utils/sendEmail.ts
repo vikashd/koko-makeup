@@ -3,7 +3,7 @@ import { z } from "zod";
 export type EmailForm = z.infer<typeof schema>;
 
 export const schema = z.object({
-  email: z.string().email({ message: "Enter a valid email" }),
+  email: z.string().trim().email({ message: "Enter a valid email" }),
   name: z.string().trim().min(1, "Enter your name"),
   message: z.string().trim().min(1, "Enter a message"),
 });

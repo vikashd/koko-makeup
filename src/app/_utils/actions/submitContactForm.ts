@@ -9,6 +9,8 @@ export type SubmitResponse =
   | { type: "invalid"; validated: EmailFormErrors }
   | { type: "submitted" | "error" | "valid" };
 
+const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
+
 export const submitContactForm = async (
   previous: any,
   formData: FormData
@@ -25,8 +27,29 @@ export const submitContactForm = async (
     return { type: "invalid", validated: validated.error.format() };
   }
 
+  const token = formData.get("recaptcha-token");
+  let response;
+
   try {
-    await sendEmail(data);
+    response = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+      method: "POST",
+      body: `secret=${RECAPTCHA_SECRET_KEY}&response=${token}`,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+  } catch (e) {
+    return { type: "error" };
+  }
+
+  try {
+    const recaptchaResponse = await response.json();
+
+    if (recaptchaResponse?.success && recaptchaResponse?.score > 0.5) {
+      await sendEmail(data);
+    } else {
+      return { type: "error" };
+    }
 
     return { type: "submitted" };
   } catch (e) {
