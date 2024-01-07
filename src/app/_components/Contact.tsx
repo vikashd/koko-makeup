@@ -307,7 +307,10 @@ export function ContactForm() {
           </>
         )}
       </div>
-      <Notifications notifications={notifications} />
+      <Notifications
+        notifications={notifications}
+        onClose={removeNotification}
+      />
     </>
   );
 }

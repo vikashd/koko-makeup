@@ -14,9 +14,10 @@ export interface Notification {
 
 interface NotificationsProps {
   notifications: Notification[];
+  onClose: (id: string) => void;
 }
 
-export function Notifications({ notifications }: NotificationsProps) {
+export function Notifications({ notifications, onClose }: NotificationsProps) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -48,7 +49,7 @@ export function Notifications({ notifications }: NotificationsProps) {
                 exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
               >
                 {message}
-                <button className="ml-2">
+                <button className="ml-2" onClick={() => onClose(id)}>
                   <Xmark />
                 </button>
               </motion.li>
