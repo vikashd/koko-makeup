@@ -1,4 +1,11 @@
 import { Contact } from "@/app/_components/Contact";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Contact",
+  };
+}
 
 export default function ContactPage() {
   return (
