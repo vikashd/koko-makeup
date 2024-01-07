@@ -7,7 +7,7 @@ export type EmailFormErrors = ZodFormattedError<EmailForm>;
 
 export type SubmitResponse =
   | { type: "invalid"; validated: EmailFormErrors }
-  | { type: "submitted" | "error" | "valid"; message?: string };
+  | { type: "submitted" | "error" | "valid" };
 
 const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
 
@@ -38,11 +38,8 @@ export const submitContactForm = async (
         "Content-Type": "application/x-www-form-urlencoded",
       },
     });
-  } catch (e: any) {
-    return {
-      type: "error",
-      message: `get recaptcha, ${e.toString()}, token: ${token}`,
-    };
+  } catch (e) {
+    return { type: "error" };
   }
 
   try {
@@ -52,14 +49,11 @@ export const submitContactForm = async (
     if (recaptchaResponse?.success && recaptchaResponse?.score > 0.5) {
       await sendEmail(data);
     } else {
-      return {
-        type: "error",
-        message: `send email, ${JSON.stringify(recaptchaResponse)}`,
-      };
+      return { type: "error" };
     }
 
     return { type: "submitted" };
-  } catch (e: any) {
-    return { type: "error", message: `fetch email, ${e.toString()}` };
+  } catch (e) {
+    return { type: "error" };
   }
 };
