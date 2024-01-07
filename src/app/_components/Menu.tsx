@@ -198,7 +198,7 @@ export function HeaderMenu({ sections, children }: HeaderMenu) {
         {isOpen && (
           <motion.div
             initial="closed"
-            className="flex flex-col bg-slate-800 bg-opacity-95 fixed top-0 left-0 w-screen h-screen overflow-y-auto z-50"
+            className="flex flex-col bg-slate-800 bg-opacity-95 fixed top-0 left-0 w-screen h-dvh overflow-y-auto z-50"
             style={{
               background:
                 "linear-gradient(rgba(23, 37, 84, 0.95), rgba(23, 37, 84, 0.95)), url('/hero-1080x720.png')",

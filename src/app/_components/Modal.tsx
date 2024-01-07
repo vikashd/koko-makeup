@@ -11,7 +11,7 @@ export function Modal({ open, onClose, children }: ModalProps) {
     <Dialog
       open={open}
       onClose={onClose}
-      className="fixed w-screen h-screen top-0 left-0 bg-blue-950/90 z-50"
+      className="fixed w-screen h-dvh top-0 left-0 bg-blue-950/90 z-50"
     >
       <Dialog.Panel className="relative flex justify-center items-center h-full">
         {children}
