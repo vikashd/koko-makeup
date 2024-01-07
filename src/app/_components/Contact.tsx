@@ -199,7 +199,7 @@ export function ContactForm() {
                 href="tel:+447903444712"
                 className="underline hover:underline-offset-2"
               >
-                +44 7903 444712
+                +44&nbsp;7903&nbsp;444712
               </Link>
               .
             </p>
