@@ -12,7 +12,7 @@ export function SocialMediaLinks({ className }: SocialMediaLinksProps) {
       <li>
         <Link
           className="block p-1"
-          href="https://facebook.com"
+          href="https://www.facebook.com/koko.tee.14"
           target="_blank"
           rel="noreferrer"
           title="Facebook"
@@ -23,7 +23,7 @@ export function SocialMediaLinks({ className }: SocialMediaLinksProps) {
       <li>
         <Link
           className="block p-1"
-          href="https://instagram.com"
+          href="https://www.instagram.com/milithakkarmua/"
           target="_blank"
           rel="noreferrer"
           title="Instagram"
