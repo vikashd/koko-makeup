@@ -20,12 +20,19 @@ import { SocialMediaLinks } from "./SocialMediaLinks";
 
 interface HeaderMenu {
   children?: React.ReactNode;
-  items?: MenuItem[];
+  sections?: MenuSection[];
 }
 
 interface NavProps {
   className?: string;
   children?: React.ReactNode;
+}
+
+export interface MenuSection {
+  id: string;
+  title?: string;
+  items?: MenuItem[];
+  url?: string;
 }
 
 export interface MenuItem {
@@ -39,7 +46,7 @@ const menu: Variants = {
   closed: { transform: "translateX(100%)" },
 };
 
-export function HeaderMenu({ items, children }: HeaderMenu) {
+export function HeaderMenu({ sections, children }: HeaderMenu) {
   const [isOpen, setIsOpen] = useState(false);
   const [largeLogoScope, animateLargeLogo] = useAnimate();
   const [smallLogoScope, animateSmallLogo] = useAnimate();
@@ -127,7 +134,7 @@ export function HeaderMenu({ items, children }: HeaderMenu) {
           animate={isOpen ? "open" : "closed"}
         >
           <div className="container mx-auto flex justify-between items-center w-full">
-            <div className="w-full md:w-auto md:h-auto items-center justify-between flex">
+            <div className="w-full items-center justify-between flex">
               <Link
                 ref={logoContainerScope}
                 className="flex items-center justify-center"
@@ -160,6 +167,18 @@ export function HeaderMenu({ items, children }: HeaderMenu) {
                   />
                 </div>
               </Link>
+              <div className="hidden md:block ml-auto">
+                <nav>
+                  <ul className="flex gap-4">
+                    <li>
+                      <Link href="/#gallery">Gallery</Link>
+                    </li>
+                    <li>
+                      <Link href="/contact">Contact</Link>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
               <Link
                 href="?menu"
                 className="block md:hidden"
@@ -214,18 +233,56 @@ export function HeaderMenu({ items, children }: HeaderMenu) {
                 <Xmark className="w-6 h-6 group-hover:scale-110 group-hover:rotate-90 transition-transform" />
               </Link>
             </div>
-            <div className="px-4 pb-14">
-              <Nav className="font-light text-xl pt-32 pb-24">
-                {items?.map(({ id, title, url }) => {
-                  return (
-                    <li key={id}>
-                      <Link href={url} className="italic">
-                        {title}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </Nav>
+            <div className="px-4 pt-32 pb-14">
+              <nav>
+                {sections?.map(
+                  ({
+                    id: sectionId,
+                    title: sectionTitle,
+                    items,
+                    url: sectionUrl,
+                  }) => {
+                    return (
+                      <ul
+                        key={sectionId}
+                        className="flex flex-col gap-1 font-light text-xl mb-3"
+                      >
+                        {sectionTitle &&
+                          (sectionUrl ? (
+                            <Link href={sectionUrl}>{sectionTitle}</Link>
+                          ) : (
+                            <div className="mb-3">{sectionTitle}</div>
+                          ))}
+                        {items?.map(({ id, title, url }) => {
+                          return (
+                            <li key={id}>
+                              -{" "}
+                              <Link
+                                href={url}
+                                className={cx({
+                                  italic: pathname === url,
+                                })}
+                              >
+                                {title}
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    );
+                  }
+                )}
+                <ul className="font-light text-xl">
+                  <li>
+                    <Link
+                      href="/contact"
+                      className={cx({ italic: pathname === "/contact" })}
+                    >
+                      Contact
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
             </div>
             <div className="sticky bottom-0 p-4 mt-auto">
               <SocialMediaLinks className="justify-center" />
