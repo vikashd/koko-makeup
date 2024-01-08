@@ -4,6 +4,7 @@ export interface TypeHeroBannerComponentFields {
     entryName?: EntryFieldTypes.Symbol;
     heading?: EntryFieldTypes.Symbol;
     intro?: EntryFieldTypes.Symbol;
+    homePageIntro?: EntryFieldTypes.RichText;
 }
 
 export type TypeHeroBannerComponentSkeleton = EntrySkeletonType<TypeHeroBannerComponentFields, "heroBannerComponent">;

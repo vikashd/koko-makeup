@@ -1,10 +1,12 @@
+import { BLOCKS } from "@contentful/rich-text-types";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import GallerySC from "@/app/_components/GallerySC";
 import { Hero } from "@/app/_components/Hero";
 import { getHero } from "@/app/_ctf/getHero";
 
 export default async function Home() {
   const data = await getHero("7rpK5EyYsbkdBSkKAAyGT6");
-  const intro = data.items[0].fields.intro;
+  const { intro, homePageIntro } = data.items[0].fields;
 
   return (
     <>
@@ -19,16 +21,14 @@ export default async function Home() {
       </Hero>
       {intro && (
         <div className="container mx-auto mt-10 mb-24">
-          <div>
-            <p className="mb-6">{intro}</p>
-            <p className="mb-6">
-              Nunc tristique vestibulum interdum. Vestibulum eget ultricies
-              metus. Phasellus et eleifend nisi, ut sodales velit. Fusce dapibus
-              placerat sapien eu commodo. Pellentesque ullamcorper molestie
-              ligula eu tristique. Vestibulum congue sem ex, imperdiet dignissim
-              neque placerat scelerisque. Aenean vitae tristique tortor.
-            </p>
-          </div>
+          {homePageIntro &&
+            documentToReactComponents(homePageIntro, {
+              renderNode: {
+                [BLOCKS.PARAGRAPH]: (_node, children) => (
+                  <p className="mb-4">{children}</p>
+                ),
+              },
+            })}
           <div id="gallery" className="pt-16">
             <GallerySC firstRowOnly />
           </div>

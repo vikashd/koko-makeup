@@ -28,7 +28,7 @@ export function Hero({ children }: HeroProps) {
         }}
       >
         <Image
-          src="/hero-1080x720.png"
+          src="/hero-1080x720.webp"
           className="absolute w-full h-full"
           style={{
             objectFit: "cover",
