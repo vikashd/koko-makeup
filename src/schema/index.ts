@@ -1,3 +1,5 @@
+export { isTypeAbout } from "./TypeAbout";
+export type { TypeAbout, TypeAboutFields, TypeAboutSkeleton } from "./TypeAbout";
 export { isTypeHeroBannerComponent } from "./TypeHeroBannerComponent";
 export type { TypeHeroBannerComponent, TypeHeroBannerComponentFields, TypeHeroBannerComponentSkeleton } from "./TypeHeroBannerComponent";
 export { isTypePortfolio } from "./TypePortfolio";

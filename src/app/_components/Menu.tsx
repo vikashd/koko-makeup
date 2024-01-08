@@ -174,6 +174,9 @@ export function HeaderMenu({ sections, children }: HeaderMenu) {
                       <Link href="/#gallery">Gallery</Link>
                     </li>
                     <li>
+                      <Link href="/about">About</Link>
+                    </li>
+                    <li>
                       <Link href="/contact">Contact</Link>
                     </li>
                   </ul>
@@ -277,6 +280,16 @@ export function HeaderMenu({ sections, children }: HeaderMenu) {
                   }
                 )}
                 <ul className="font-light text-xl">
+                  <li className="mb-3">
+                    <Link
+                      href="/about"
+                      className={cx("text-2xl", {
+                        italic: pathname === "/about",
+                      })}
+                    >
+                      About
+                    </Link>
+                  </li>
                   <li className="mb-3">
                     <Link
                       href="/contact"
