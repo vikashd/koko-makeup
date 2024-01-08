@@ -208,7 +208,7 @@ export function HeaderMenu({ sections, children }: HeaderMenu) {
           >
             <div className="absolute top-0 left-0 w-full h-full before:block before:absolute before:backdrop-sepia before:bg-blue-950/95 before:w-full before:h-full">
               <Image
-                src="/hero-1080x720.png"
+                src="/hero-1080x720.webp"
                 className="w-full h-full"
                 width="1080"
                 height="720"
