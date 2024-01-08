@@ -21,14 +21,17 @@ export default async function Home() {
       </Hero>
       {intro && (
         <div className="container mx-auto mt-10 mb-24">
-          {homePageIntro &&
-            documentToReactComponents(homePageIntro, {
-              renderNode: {
-                [BLOCKS.PARAGRAPH]: (_node, children) => (
-                  <p className="mb-4">{children}</p>
-                ),
-              },
-            })}
+          {homePageIntro && (
+            <div className="md:columns-2">
+              {documentToReactComponents(homePageIntro, {
+                renderNode: {
+                  [BLOCKS.PARAGRAPH]: (_node, children) => (
+                    <p className="mb-4">{children}</p>
+                  ),
+                },
+              })}
+            </div>
+          )}
           <div id="gallery" className="pt-16">
             <GallerySC firstRowOnly />
           </div>

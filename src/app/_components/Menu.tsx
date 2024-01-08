@@ -177,7 +177,9 @@ export function HeaderMenu({ sections, children }: HeaderMenu) {
                       <Link href="/about">About</Link>
                     </li>
                     <li>
-                      <Link href="/contact">Contact</Link>
+                      <Link href="/contact">
+                        <Mail />
+                      </Link>
                     </li>
                   </ul>
                 </nav>
