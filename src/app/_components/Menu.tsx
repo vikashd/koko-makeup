@@ -201,18 +201,21 @@ export function HeaderMenu({ sections, children }: HeaderMenu) {
         {isOpen && (
           <motion.div
             initial="closed"
-            className="flex flex-col bg-slate-800 bg-opacity-95 fixed top-0 left-0 w-screen h-dvh overflow-y-auto z-50"
-            style={{
-              background:
-                "linear-gradient(rgba(23, 37, 84, 0.95), rgba(23, 37, 84, 0.95)), url('/hero-1080x720.png')",
-              backgroundSize: "cover",
-              backgroundAttachment: "fixed",
-              backgroundPosition: "center",
-            }}
+            className="fixed flex flex-col bg-blue-950 top-0 left-0 w-screen h-dvh overflow-y-auto z-50"
             animate={isOpen ? "open" : "closed"}
             variants={menu}
             exit="closed"
           >
+            <div className="absolute top-0 left-0 w-full h-full before:block before:absolute before:backdrop-sepia before:bg-blue-950/95 before:w-full before:h-full">
+              <Image
+                src="/hero-1080x720.png"
+                className="w-full h-full"
+                width="1080"
+                height="720"
+                alt="Menu background image"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
             <div className="sticky top-0 p-4">
               <Link
                 className="flex items-center justify-center bg-blue-900 rounded-full rounded-tl-none w-[60px] h-[60px]"
@@ -236,7 +239,7 @@ export function HeaderMenu({ sections, children }: HeaderMenu) {
                 <Xmark className="w-6 h-6 group-hover:scale-110 group-hover:rotate-90 transition-transform" />
               </Link>
             </div>
-            <div className="px-4 pt-32 pb-14">
+            <div className="relative px-4 pt-32 pb-14">
               <nav>
                 {sections?.map(
                   ({

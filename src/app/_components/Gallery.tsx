@@ -107,12 +107,12 @@ export function Gallery({ id, title, images, firstRowOnly }: GalleryProps) {
               return (
                 <div
                   key={image.sys.id}
-                  className="relative rounded-full rounded-tl-none overflow-hidden transform-gpu group"
+                  className="relative rounded-full rounded-tl-none overflow-hidden group"
                 >
                   {imageComponent}
                   <Link
                     href={`/gallery/${id}`}
-                    className="relative flex items-center justify-center w-full h-full italic text-sm md:text-base text-white backdrop-sepia  bg-blue-900/80 hover:bg-blue-900/90 transition-colors"
+                    className="relative flex items-center justify-center w-full h-full italic text-sm md:text-base text-white backdrop-sepia bg-blue-900/80 hover:bg-blue-900/90 transition-colors"
                   >
                     More <LinkIcon className="ml-1" width="18" height="18" />
                   </Link>

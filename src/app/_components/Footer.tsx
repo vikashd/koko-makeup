@@ -24,7 +24,7 @@ export function Footer() {
                 >
                   <Phone className="flex-shrink-0 md:mr-2" />{" "}
                   <span className="text-sm whitespace-nowrap hidden md:inline">
-                    +44 7903 444712
+                    +44-7903-444712
                   </span>
                 </Link>
               </li>
