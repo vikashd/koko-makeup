@@ -154,7 +154,10 @@ export function ModalImage({
                       <Xmark className="w-5 h-6 group-hover:scale-75 group-hover:rotate-90 transition-all" />
                     </button>
                   </div>
-                  <div className="p-2 pt-12 pb-20 pr-9">{description}</div>
+                  <div className="p-2 pt-12 pb-20 pr-9">
+                    {description}
+                    <span className="block w-6 mt-4 border-t border-solid border-blue-950" />
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
