@@ -46,6 +46,7 @@ export function Gallery({ id, title, images, firstRowOnly }: GalleryProps) {
 
       if (flag) {
         columns = show;
+        break;
       }
     }
 
