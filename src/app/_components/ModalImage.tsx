@@ -127,12 +127,12 @@ export function ModalImage({
                 className="absolute flex items-center justify-center bottom-2 right-2 md:bottom-4 md:right-4 w-6 h-6 sm:w-10 sm:h-10 bg-blue-950 text-white rounded-full rounded-br-none lg:hidden hover:bg-blue-900"
                 onClick={openDescription}
               >
-                <Info className="w-3 h-3  sm:w-4 sm:h-4" />
+                <Info className="w-3 h-3 sm:w-4 sm:h-4" />
               </button>
             )}
           </motion.div>
           {description && (
-            <div className="hidden lg:block bottom-0 bg-white text-slate-900 text-xs md:text-sm text-center p-4 pb-6">
+            <div className="hidden lg:block bottom-0 bg-white text-slate-900 text-xs md:text-sm p-4 pb-6">
               {description}
             </div>
           )}

@@ -2,10 +2,10 @@
 
 import cx from "classnames";
 import { Entry } from "contentful";
-import { Link as LinkIcon } from "iconoir-react";
+import { GridPlus, Link as LinkIcon } from "iconoir-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { TypePortfolioImageSkeleton } from "@/schema";
 
@@ -71,7 +71,7 @@ export function Gallery({ id, title, images, firstRowOnly }: GalleryProps) {
               className="block p-2 bg-white text-blue-950 rounded-full rounded-bl-none hover:text-white hover:bg-blue-900 transition-colors"
               scroll
             >
-              <LinkIcon width="18" height="18" />
+              <LinkIcon width="18px" height="18px" />
             </Link>
           </div>
         </div>
@@ -116,7 +116,7 @@ export function Gallery({ id, title, images, firstRowOnly }: GalleryProps) {
                     className="relative flex items-center justify-center w-full h-full italic text-sm md:text-base text-white backdrop-sepia bg-blue-900/80 hover:bg-blue-900/90 transition-colors"
                     scroll
                   >
-                    More <LinkIcon className="ml-1" width="18" height="18" />
+                    <GridPlus width="24px" height="24px" />
                   </Link>
                 </div>
               );
@@ -129,7 +129,7 @@ export function Gallery({ id, title, images, firstRowOnly }: GalleryProps) {
               >
                 <Link
                   className="block"
-                  href={`/image/${image.sys.id}`}
+                  href={`/image/${image.sys.id.substring(0, 5)}`}
                   scroll={false}
                 >
                   {imageComponent}
