@@ -36,23 +36,23 @@ export function ModalImage({
   ...props
 }: ModalImageProps) {
   const router = useRouter();
-  const [update, setUpdate] = useState(false);
+  const [showDescription, setShowDescription] = useState(false);
   const [y, setY] = useState(0);
   const desktop = useMediaQuery({ query: "(min-width: 1024px)" });
 
   const openDescription = useCallback(() => {
-    setUpdate(true);
+    setShowDescription(true);
     setY(-120);
   }, []);
 
   const closeDescription = useCallback(() => {
-    setUpdate(false);
+    setShowDescription(false);
     setY(0);
   }, []);
 
   const dragProps = useMemo(() => {
     const settings: DraggableProps | undefined =
-      !desktop && !update && description
+      !desktop && !showDescription && description
         ? {
             drag: "y",
             dragConstraints: { top: 0, bottom: 0 },
@@ -66,7 +66,7 @@ export function ModalImage({
         : undefined;
 
     return settings;
-  }, [desktop, , update, description, openDescription]);
+  }, [desktop, , showDescription, description, openDescription]);
 
   useEffect(() => {
     if (desktop) {
@@ -101,7 +101,9 @@ export function ModalImage({
           >
             <Image
               loader={imageLoader}
-              className={cx("w-full h-auto transition", { grayscale: update })}
+              className={cx("w-full h-auto transition", {
+                grayscale: showDescription,
+              })}
               src={src}
               width={width}
               height={height}
@@ -110,7 +112,8 @@ export function ModalImage({
               sizes="100vw"
               draggable={false}
               {...props}
-              onMouseDown={update ? closeDescription : undefined}
+              onTouchStart={showDescription ? closeDescription : undefined}
+              onMouseDown={showDescription ? closeDescription : undefined}
             />
             <button
               className="absolute flex items-center justify-center group top-2 right-2 md:top-4 md:right-4 w-10 h-10 bg-blue-950 text-white rounded-full rounded-tr-none hover:bg-blue-900"
@@ -135,7 +138,7 @@ export function ModalImage({
           )}
           {description && (
             <AnimatePresence>
-              {update && (
+              {showDescription && (
                 <motion.div
                   initial={{ transform: "translateY(100%)" }}
                   animate={{ transform: "translateY(0)" }}

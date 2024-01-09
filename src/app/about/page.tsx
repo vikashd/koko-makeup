@@ -11,6 +11,7 @@ export default async function About() {
     <main className="pt-64">
       <div className="container mx-auto">
         <div className="flex flex-col gap-2">
+          <h2 className="text-3xl italic">{entryName || "About"}</h2>
           <Image
             src="/profile.jpeg"
             className="rounded-full"
@@ -19,7 +20,6 @@ export default async function About() {
             height={150}
             priority
           />
-          <h2 className="text-3xl italic">{entryName || "About"}</h2>
         </div>
         <div className="mt-6 mb-12 max-w-screen-md">
           {documentToReactComponents(content, {
