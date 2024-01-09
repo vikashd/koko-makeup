@@ -1,81 +1,147 @@
 "use client";
 
 import cx from "classnames";
-import { Mail, Phone, Xmark } from "iconoir-react";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
+import { Mail, NavArrowRight, Phone, Xmark } from "iconoir-react";
+import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useCallback } from "react";
-import { type MenuItem } from "./Menu";
-import { SocialMediaLinks } from "./SocialMediaLinks";
+import { usePathname } from "next/navigation";
+import { SocialMediaLinks } from "@/app/_components/SocialMediaLinks";
+import { type MenuSection } from "@/app/_components/Menu";
 
 interface MobileMenuProps {
-  items?: MenuItem[];
+  isOpen: boolean;
+  menu: Variants;
+  sections?: MenuSection[];
 }
 
-interface NavProps {
-  className?: string;
-  children?: React.ReactNode;
-}
-
-export function MobileMenu({ items }: MobileMenuProps) {
-  const router = useRouter();
-
-  const onClose = useCallback(() => {
-    router.back();
-  }, [router]);
+export function MobileMenu({ isOpen, menu, sections }: MobileMenuProps) {
+  const pathname = usePathname();
 
   return (
-    <div
-      className="bg-slate-800 bg-opacity-95 fixed top-0 left-0 w-screen h-screen px-4 pt-20 pb-14"
-      style={{
-        background:
-          "linear-gradient(rgba(23, 37, 84, 0.95), rgba(23, 37, 84, 0.95)), url('/sample.png')",
-        backgroundSize: "cover",
-        backgroundAttachment: "fixed",
-        backgroundPosition: "center",
-      }}
-    >
-      <button
-        className="group fixed right-4 top-4 p-2 bg-white text-blue-950 rounded-full rounded-tr-none"
-        onClick={onClose}
-      >
-        <Xmark className="w-6 h-6 group-hover:scale-110 group-hover:rotate-90 transition-transform" />
-      </button>
-      <Nav className="font-light text-xl mt-16">
-        <>
-          {items?.map(({ id, title, url }) => {
-            return (
-              <li key={id}>
-                <Link href={url} className="italic">
-                  {title}
-                </Link>
-              </li>
-            );
-          })}
-          <li>
+    <AnimatePresence initial={false}>
+      {isOpen && (
+        <motion.div
+          initial="closed"
+          className="fixed flex flex-col bg-blue-950 top-0 left-0 w-screen h-dvh overflow-y-auto z-50"
+          animate={isOpen ? "open" : "closed"}
+          variants={menu}
+          exit="closed"
+        >
+          <div className="absolute top-0 left-0 w-full h-full before:block before:absolute before:backdrop-sepia before:bg-blue-950/95 before:w-full before:h-full">
+            <Image
+              src="/hero-1080x720.webp"
+              className="w-full h-full"
+              width="1080"
+              height="720"
+              alt="Menu background image"
+              style={{ objectFit: "cover" }}
+              priority
+            />
+          </div>
+          <div className="sticky top-0 p-4">
             <Link
-              href="mailto:vikash.deepchand@gmail.com"
-              className="flex items-center"
+              className="flex items-center justify-center bg-blue-900 rounded-full rounded-tl-none w-[60px] h-[60px]"
+              href="/"
             >
-              <Mail className="mr-4" /> <span>mili@makeup.com</span>
+              <Image
+                src="/logo-face.svg"
+                alt="Mili Makeup Logo"
+                width={64}
+                height={82}
+                className="max-w-[50%]"
+                priority
+              />
             </Link>
-          </li>
-          <li>
-            <Link href="tel:+442085555555" className="flex items-center">
-              <Phone className="mr-4" /> <span>+44 (0)208 555 5555</span>
+            <Link
+              href={pathname}
+              className="group absolute right-4 top-4 p-2 bg-white text-blue-950 rounded-full rounded-tr-none z-50"
+              title="Close"
+              scroll={false}
+            >
+              <Xmark className="w-6 h-6 group-hover:scale-110 group-hover:rotate-90 transition-transform" />
             </Link>
-          </li>
-        </>
-      </Nav>
-      <SocialMediaLinks className="absolute left-0 right-0 bottom-0 p-4 justify-center" />
-    </div>
-  );
-}
-
-function Nav({ className, children }: NavProps) {
-  return (
-    <nav className={cx("text-white", className)}>
-      <ul className="grid grid-cols-1 gap-4">{children}</ul>
-    </nav>
+          </div>
+          <div className="relative px-4 pt-32 pb-14">
+            <nav>
+              {sections?.map(
+                ({
+                  id: sectionId,
+                  title: sectionTitle,
+                  items,
+                  url: sectionUrl,
+                }) => {
+                  return (
+                    <ul
+                      key={sectionId}
+                      className="flex flex-col gap-1 font-light text-xl mb-4"
+                    >
+                      <li className="mb-3">
+                        {sectionTitle &&
+                          (sectionUrl ? (
+                            <Link href={sectionUrl} className="text-2xl">
+                              {sectionTitle}
+                            </Link>
+                          ) : (
+                            <div className="text-2xl">{sectionTitle}</div>
+                          ))}
+                      </li>
+                      {items?.map(({ id, title, url }) => {
+                        return (
+                          <li key={id} className="flex items-center">
+                            <NavArrowRight
+                              className="mr-2"
+                              width="0.75rem"
+                              height="0.75rem"
+                            />{" "}
+                            <Link
+                              href={url}
+                              className={cx({ italic: pathname === url })}
+                            >
+                              {title}
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  );
+                }
+              )}
+              <ul className="font-light text-xl">
+                <li className="mb-3">
+                  <Link
+                    href="/about"
+                    className={cx("text-2xl", {
+                      italic: pathname === "/about",
+                    })}
+                  >
+                    About
+                  </Link>
+                </li>
+                <li className="mt-10">
+                  <div className="flex gap-2">
+                    <Link
+                      href="/contact"
+                      className="inline-flex w-10 h-10 items-center justify-center bg-blue-800 text-white rounded-full rounded-tr-none"
+                    >
+                      <Mail className="w-6 h-6" />
+                    </Link>
+                    <Link
+                      href="tel:+447903444712"
+                      className="inline-flex w-10 h-10 items-center justify-center bg-blue-800 text-white rounded-full rounded-tr-none"
+                    >
+                      <Phone className="w-5 h-5" />
+                    </Link>
+                  </div>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div className="sticky bottom-0 p-4 mt-auto">
+            <SocialMediaLinks className="justify-center" />
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
