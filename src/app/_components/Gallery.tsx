@@ -129,7 +129,7 @@ export function Gallery({ id, title, images, firstRowOnly }: GalleryProps) {
               >
                 <Link
                   className="block"
-                  href={`/image/${image.sys.id.substring(0, 5)}`}
+                  href={`/image/${image.sys.id}`}
                   scroll={false}
                 >
                   {imageComponent}
