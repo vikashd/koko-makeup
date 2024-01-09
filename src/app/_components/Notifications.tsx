@@ -31,7 +31,7 @@ export function Notifications({ notifications, onClose }: NotificationsProps) {
   return (
     <>
       {createPortal(
-        <ul className="fixed flex flex-col items-start gap-2 font-sans text-sm p-4 left-0 bottom-0">
+        <ul className="fixed flex flex-col items-start gap-2 font-sans text-sm p-4 right-0 bottom-0">
           <AnimatePresence initial={false}>
             {notifications.map(({ id, type, message }) => (
               <motion.li

@@ -180,7 +180,7 @@ export function HeaderMenu({ sections, children }: HeaderMenu) {
                       <Link
                         href="/contact"
                         className={cx(
-                          "inline-flex p-2 rounded-full rounded-tr-none",
+                          "inline-flex p-2 items-center justify-center rounded-full rounded-tr-none w-10 h-10",
                           {
                             "bg-white text-blue-950 hover:text-white hover:bg-blue-900 transition-colors":
                               pathname !== "/contact",
@@ -188,7 +188,7 @@ export function HeaderMenu({ sections, children }: HeaderMenu) {
                           { "bg-blue-900 text-white": pathname === "/contact" }
                         )}
                       >
-                        <Mail />
+                        <Mail width="1.4rem" height="1.4rem" />
                       </Link>
                     </li>
                   </ul>
