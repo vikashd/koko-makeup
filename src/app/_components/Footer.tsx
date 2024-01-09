@@ -10,7 +10,7 @@ export function Footer() {
       <div className="container mx-auto">
         <div className="grid grid-cols-2 md:items-center md:grid-cols-3 gap-2 md:gap-4 pt-8 pb-12 border-t border-y-slate-50/75">
           <div>
-            <ul className="flex gap-2 lg:gap-0">
+            <ul className="flex items-center gap-2 lg:gap-0">
               <li>
                 <Link href="/contact" className="inline-flex items-center p-1">
                   <Mail className="flex-shrink-0" />{" "}
@@ -24,7 +24,11 @@ export function Footer() {
                   href="tel:+447903444712"
                   className="inline-flex items-center p-1"
                 >
-                  <Phone className="flex-shrink-0" />{" "}
+                  <Phone
+                    className="flex-shrink-0"
+                    width="1.3rem"
+                    height="1.3rem"
+                  />{" "}
                   <span className="text-sm whitespace-nowrap hidden md:inline md:ml-2">
                     +44-7903-444712
                   </span>
