@@ -169,7 +169,7 @@ export function HeaderMenu({ sections, children }: HeaderMenu) {
               </Link>
               <div className="hidden md:block ml-auto">
                 <nav>
-                  <ul className="flex gap-4">
+                  <ul className="flex items-center gap-4">
                     <li>
                       <Link href="/#gallery">Gallery</Link>
                     </li>
@@ -177,7 +177,10 @@ export function HeaderMenu({ sections, children }: HeaderMenu) {
                       <Link href="/about">About</Link>
                     </li>
                     <li>
-                      <Link href="/contact">
+                      <Link
+                        href="/contact"
+                        className="inline-flex p-2 bg-white text-blue-950 rounded-full rounded-tr-none hover:text-white hover:bg-blue-900 transition-colors"
+                      >
                         <Mail />
                       </Link>
                     </li>
