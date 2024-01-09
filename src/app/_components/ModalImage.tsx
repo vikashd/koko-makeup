@@ -42,13 +42,11 @@ export function ModalImage({
 
   const openDescription = useCallback(() => {
     setUpdate(true);
-    // setDragProps(undefined);
     setY(-120);
   }, []);
 
   const closeDescription = useCallback(() => {
     setUpdate(false);
-    // setDragProps(dragSettings);
     setY(0);
   }, []);
 
@@ -75,10 +73,6 @@ export function ModalImage({
       closeDescription();
     }
   }, [desktop, closeDescription]);
-
-  // const [dragProps, setDragProps] = useState<DraggableProps | undefined>(
-  //   description ? dragSettings : undefined
-  // );
 
   const onClose = useCallback(() => {
     if (url) {
