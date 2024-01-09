@@ -179,7 +179,14 @@ export function HeaderMenu({ sections, children }: HeaderMenu) {
                     <li>
                       <Link
                         href="/contact"
-                        className="inline-flex p-2 bg-white text-blue-950 rounded-full rounded-tr-none hover:text-white hover:bg-blue-900 transition-colors"
+                        className={cx(
+                          "inline-flex p-2 rounded-full rounded-tr-none",
+                          {
+                            "bg-white text-blue-950 hover:text-white hover:bg-blue-900 transition-colors":
+                              pathname !== "/contact",
+                          },
+                          { "bg-blue-900 text-white": pathname === "/contact" }
+                        )}
                       >
                         <Mail />
                       </Link>
