@@ -2,6 +2,11 @@ import { BLOCKS } from "@contentful/rich-text-types";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { getAbout } from "@/app/_ctf/getAbout";
 import Image from "next/image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About",
+};
 
 export default async function About() {
   const data = await getAbout();
