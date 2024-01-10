@@ -6,7 +6,8 @@ export function Loading() {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 63.159 81.808"
-        className="max-w-[54%]"
+        width="32px"
+        height="42px"
         fill="currentColor"
       >
         <path
