@@ -17,8 +17,11 @@ interface MobileMenuProps {
 }
 
 const menu: Variants = {
-  open: { transform: "translateX(0)", transitionTimingFunction: "ease-in-out" },
-  closed: { transform: "translateX(100%)" },
+  open: {
+    transform: "translate3d(0,0,0)",
+    transitionTimingFunction: "ease-in-out",
+  },
+  closed: { transform: "translate3d(100%,0,0)" },
 };
 
 export function MobileMenu({ isOpen, sections }: MobileMenuProps) {
