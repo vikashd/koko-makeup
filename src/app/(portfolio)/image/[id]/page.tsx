@@ -1,5 +1,5 @@
 import { Entry } from "contentful";
-import { Metadata } from "next";
+import { Metadata, ResolvingMetadata } from "next";
 import { ModalImage } from "@/app/_components/ModalImage";
 import { getPortfolioImage } from "@/app/_ctf/getPortfolioImage";
 import { getGalleries } from "@/app/_ctf/getGalleries";
@@ -39,11 +39,14 @@ export async function generateStaticParams() {
   return slugs;
 }
 
-export async function generateMetadata({
-  params: { id },
-}: {
-  params: { id: string };
-}): Promise<Metadata> {
+export async function generateMetadata(
+  {
+    params: { id },
+  }: {
+    params: { id: string };
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const data = await getPortfolioImage(id);
   const image = formatPortfolioImageData(data);
 
@@ -51,8 +54,23 @@ export async function generateMetadata({
     return {};
   }
 
+  const parentMetadata = await parent;
+
+  const description =
+    image.description?.value ||
+    parentMetadata.openGraph?.description ||
+    "Portfolio image";
+
   return {
     title: `${image.title}`,
+    openGraph: {
+      description,
+      images: `https:${image.url}?w=1200&h=630`,
+    },
+    twitter: {
+      description,
+      images: `https:${image.url}?w=1600&h=900`,
+    },
   };
 }
 
