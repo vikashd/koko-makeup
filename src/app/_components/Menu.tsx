@@ -8,7 +8,6 @@ import {
   useMotionValue,
   useMotionValueEvent,
   useScroll,
-  type Variants,
 } from "framer-motion";
 import { Mail, Menu } from "iconoir-react";
 import Image from "next/image";
@@ -33,11 +32,6 @@ export interface MenuItem {
   title: string;
   url: string;
 }
-
-const menu: Variants = {
-  open: { transform: "translateX(0)" },
-  closed: { transform: "translateX(100%)" },
-};
 
 export function HeaderMenu({ sections }: HeaderMenu) {
   const [isOpen, setIsOpen] = useState(false);
@@ -200,7 +194,7 @@ export function HeaderMenu({ sections }: HeaderMenu) {
         </motion.div>
       </div>
       <motion.div ref={ref} />
-      <MobileMenu isOpen={isOpen} menu={menu} sections={sections} />
+      <MobileMenu isOpen={isOpen} sections={sections} />
     </>
   );
 }

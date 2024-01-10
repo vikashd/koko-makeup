@@ -1,34 +1,48 @@
 "use client";
 
+import { Dialog } from "@headlessui/react";
 import cx from "classnames";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { Mail, NavArrowRight, Phone, Xmark } from "iconoir-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useCallback } from "react";
 import { SocialMediaLinks } from "@/app/_components/SocialMediaLinks";
 import { type MenuSection } from "@/app/_components/Menu";
 
 interface MobileMenuProps {
   isOpen: boolean;
-  menu: Variants;
   sections?: MenuSection[];
 }
 
-export function MobileMenu({ isOpen, menu, sections }: MobileMenuProps) {
+const menu: Variants = {
+  open: { transform: "translateX(0)" },
+  closed: { transform: "translateX(100%)" },
+};
+
+export function MobileMenu({ isOpen, sections }: MobileMenuProps) {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const onClose = useCallback(() => {
+    router.push(pathname);
+  }, [router, pathname]);
 
   return (
-    <AnimatePresence initial={false}>
+    <AnimatePresence>
       {isOpen && (
-        <motion.div
-          initial="closed"
+        <Dialog
+          open={isOpen}
+          onClose={onClose}
           className="fixed flex flex-col bg-blue-950 top-0 left-0 w-screen h-dvh overflow-y-auto z-50"
+          as={motion.div}
+          initial="closed"
           animate={isOpen ? "open" : "closed"}
           variants={menu}
           exit="closed"
         >
-          <div className="absolute top-0 left-0 w-full h-full before:block before:absolute before:backdrop-sepia before:bg-blue-950/95 before:w-full before:h-full">
+          <div className="absolute top-0 left-0 w-full h-full -z-10">
             <Image
               src="/hero-1080x720.webp"
               className="w-full h-full"
@@ -38,8 +52,9 @@ export function MobileMenu({ isOpen, menu, sections }: MobileMenuProps) {
               style={{ objectFit: "cover" }}
               priority
             />
+            <div className="absolute top-0 left-0 backdrop-sepia bg-blue-950/95 w-full h-full" />
           </div>
-          <div className="sticky top-0 p-4">
+          <div className="sticky top-0 p-4 z-0">
             <Link
               className="flex items-center justify-center bg-blue-900 rounded-full rounded-tl-none w-[60px] h-[60px]"
               href="/"
@@ -62,7 +77,7 @@ export function MobileMenu({ isOpen, menu, sections }: MobileMenuProps) {
               <Xmark className="w-6 h-6 group-hover:scale-110 group-hover:rotate-90 transition-transform" />
             </Link>
           </div>
-          <div className="relative px-4 pt-32 pb-14">
+          <div className="relative px-4 pt-32 pb-14 z-0">
             <nav>
               {sections?.map(
                 ({
@@ -137,10 +152,10 @@ export function MobileMenu({ isOpen, menu, sections }: MobileMenuProps) {
               </ul>
             </nav>
           </div>
-          <div className="sticky bottom-0 p-4 mt-auto">
+          <div className="sticky bottom-0 p-4 mt-auto z-0">
             <SocialMediaLinks className="justify-center" />
           </div>
-        </motion.div>
+        </Dialog>
       )}
     </AnimatePresence>
   );
