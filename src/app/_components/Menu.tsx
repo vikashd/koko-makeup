@@ -47,7 +47,7 @@ export function HeaderMenu({ sections }: HeaderMenu) {
   const searchParams = useSearchParams();
 
   useMotionValueEvent(scrollY, "change", (value) => {
-    setBgClass(value > 60 ? "bg-blue-950" : "");
+    setBgClass(value > 60 ? "md:bg-blue-950/95" : "");
   });
 
   useEffect(() => {
@@ -115,7 +115,7 @@ export function HeaderMenu({ sections }: HeaderMenu) {
         <motion.div
           initial={false}
           className={cx(
-            "sticky top-0 md:flex md:items-center bg-opacity-95 transition-colors duration-700 py-3",
+            "sticky top-0 md:flex md:items-center transition-colors duration-700 py-3",
             bgClass
           )}
           animate={isOpen ? "open" : "closed"}
