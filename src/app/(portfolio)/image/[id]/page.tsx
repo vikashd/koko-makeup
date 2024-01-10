@@ -62,7 +62,7 @@ export async function generateMetadata(
     "Portfolio image";
 
   return {
-    title: `${image.title}`,
+    title: `${image.title || parentMetadata.title}`,
     openGraph: {
       description,
       images: `https:${image.url}?w=1200&h=630`,

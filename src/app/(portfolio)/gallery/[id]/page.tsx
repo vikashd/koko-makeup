@@ -1,5 +1,5 @@
 import { ArrowUpLeft } from "iconoir-react";
-import { Metadata } from "next";
+import { Metadata, ResolvingMetadata } from "next";
 import Link from "next/link";
 import { getGallery } from "@/app/_ctf/getGallery";
 import { Gallery as GalleryThumbs } from "@/app/_components/Gallery";
@@ -8,19 +8,33 @@ interface PageProps {
   params: { id: string };
 }
 
-export async function generateMetadata({
-  params: { id },
-}: {
-  params: { id: string };
-}): Promise<Metadata> {
+export async function generateMetadata(
+  {
+    params: { id },
+  }: {
+    params: { id: string };
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const data = await getGallery({ "sys.id": id });
 
   const {
-    fields: { entryName },
+    fields: { entryName, images },
   } = data.items[0];
+
+  const parentMetadata = await parent;
+  const facebookImage = parentMetadata.openGraph?.images;
+  const twitterImage = parentMetadata.twitter?.images;
+  const imageUrl = images?.[0]?.fields.thumb?.fields.file?.url;
 
   return {
     title: `Gallery | ${entryName}`,
+    openGraph: {
+      images: imageUrl ? `https:${imageUrl}?w=1200&h=630` : facebookImage,
+    },
+    twitter: {
+      images: imageUrl ? `https:${imageUrl}?w=1600&h=900` : twitterImage,
+    },
   };
 }
 
