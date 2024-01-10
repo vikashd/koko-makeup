@@ -17,7 +17,7 @@ interface MobileMenuProps {
 }
 
 const menu: Variants = {
-  open: { transform: "translateX(0)" },
+  open: { transform: "translateX(0)", transitionTimingFunction: "ease-in-out" },
   closed: { transform: "translateX(100%)" },
 };
 

@@ -9,7 +9,7 @@ import {
   useMotionValueEvent,
   useScroll,
 } from "framer-motion";
-import { Mail, Menu } from "iconoir-react";
+import { Mail, MoreVert } from "iconoir-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -183,11 +183,11 @@ export function HeaderMenu({ sections }: HeaderMenu) {
               </div>
               <Link
                 href="?menu"
-                className="block md:hidden"
+                className="flex md:hidden items-center justify-center text-blue-900 bg-white rounded-full rounded-tr-none w-10 h-10"
                 shallow
                 scroll={false}
               >
-                <Menu />
+                <MoreVert width="20px" height="20px" />
               </Link>
             </div>
           </div>
