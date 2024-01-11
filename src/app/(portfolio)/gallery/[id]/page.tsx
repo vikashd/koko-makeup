@@ -51,9 +51,7 @@ export default async function Gallery({ params }: PageProps) {
         <Link href="/" className="inline-block -mb-2">
           <ArrowUpLeft />
         </Link>
-        <div className="flex items-center">
-          <h2 className="text-3xl italic">{entryName}</h2>
-        </div>
+        <h2 className="text-3xl italic">{entryName}</h2>
         <GalleryThumbs id={params.id} images={images} />
       </div>
     </main>
