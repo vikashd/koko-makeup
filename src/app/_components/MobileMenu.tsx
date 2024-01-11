@@ -73,7 +73,7 @@ export function MobileMenu({ isOpen, sections }: MobileMenuProps) {
             </Link>
             <Link
               href={pathname}
-              className="group absolute right-4 top-4 p-2 bg-white text-blue-950 rounded-full rounded-tr-none z-50"
+              className="group absolute right-4 top-4 p-2 bg-white text-blue-950 active:bg-blue-900 active:text-white hover:bg-blue-900 hover:text-white rounded-full rounded-tr-none z-50"
               title="Close"
               scroll={false}
             >
@@ -150,13 +150,13 @@ export function MobileMenu({ isOpen, sections }: MobileMenuProps) {
                   <div className="flex gap-2">
                     <Link
                       href="/contact"
-                      className="inline-flex w-10 h-10 items-center justify-center bg-blue-800 text-white rounded-full rounded-tr-none"
+                      className="inline-flex w-10 h-10 items-center justify-center bg-blue-800 text-white active:bg-white active:text-blue-800 hover:bg-white hover:text-blue-800 rounded-full rounded-tr-none"
                     >
                       <Mail className="w-6 h-6" />
                     </Link>
                     <Link
                       href="tel:+447903444712"
-                      className="inline-flex w-10 h-10 items-center justify-center bg-blue-800 text-white rounded-full rounded-tr-none"
+                      className="inline-flex w-10 h-10 items-center justify-center bg-blue-800 text-white active:bg-white active:text-blue-800 hover:bg-white hover:text-blue-800 rounded-full rounded-tr-none"
                     >
                       <Phone className="w-5 h-5" />
                     </Link>

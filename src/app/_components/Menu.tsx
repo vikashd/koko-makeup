@@ -183,7 +183,7 @@ export function HeaderMenu({ sections }: HeaderMenu) {
               </div>
               <Link
                 href="?menu"
-                className="flex md:hidden items-center justify-center text-blue-900 bg-white rounded-full rounded-tr-none w-10 h-10"
+                className="flex md:hidden items-center justify-center text-blue-900 bg-white active:bg-blue-900 active:text-white hover:bg-blue-900 hover:text-white rounded-full rounded-tr-none w-10 h-10"
                 shallow
                 scroll={false}
               >
