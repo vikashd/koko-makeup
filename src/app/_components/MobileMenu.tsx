@@ -136,6 +136,16 @@ export function MobileMenu({ isOpen, sections }: MobileMenuProps) {
                     About
                   </Link>
                 </li>
+                <li className="mb-3">
+                  <Link
+                    href="/contact"
+                    className={cx("text-2xl", {
+                      italic: pathname === "/contact",
+                    })}
+                  >
+                    Contact
+                  </Link>
+                </li>
                 <li className="mt-10">
                   <div className="flex gap-2">
                     <Link

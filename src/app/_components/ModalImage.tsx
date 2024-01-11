@@ -50,6 +50,10 @@ export function ModalImage({
     setY(0);
   }, []);
 
+  const toggleDescription = useCallback(() => {
+    showDescription ? closeDescription() : openDescription();
+  }, [showDescription, closeDescription, openDescription]);
+
   const dragProps = useMemo(() => {
     const settings: DraggableProps | undefined =
       !desktop && !showDescription && description
@@ -86,7 +90,10 @@ export function ModalImage({
     <Modal open={open} onClose={onClose}>
       <div className="flex flex-col justify-center w-full h-full p-4">
         <div
-          className="absolute w-screen h-screen top-0 left-0"
+          className={cx(
+            "absolute w-screen h-screen top-0 left-0 transition-colors duration-300",
+            { "bg-black/40": showDescription }
+          )}
           onClick={onClose}
         />
         <div
@@ -124,8 +131,12 @@ export function ModalImage({
             </button>
             {description && (
               <button
-                className="absolute flex items-center justify-center bottom-2 right-2 md:bottom-4 md:right-4 w-6 h-6 sm:w-10 sm:h-10 bg-blue-950 text-white rounded-full rounded-br-none lg:hidden hover:bg-blue-900"
-                onClick={openDescription}
+                className={cx(
+                  "absolute flex items-center justify-center bottom-2 right-2 md:bottom-4 md:right-4 w-6 h-6 sm:w-10 sm:h-10 text-white rounded-full rounded-br-none lg:hidden hover:bg-blue-900",
+                  { "bg-blue-950": !showDescription },
+                  { "bg-blue-900": showDescription }
+                )}
+                onClick={toggleDescription}
               >
                 <Info className="w-3 h-3 sm:w-4 sm:h-4" />
               </button>
