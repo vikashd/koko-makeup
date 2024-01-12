@@ -9,8 +9,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   FacebookIcon,
   FacebookShareButton,
-  TwitterIcon,
   TwitterShareButton,
+  XIcon,
 } from "react-share";
 import { useMediaQuery } from "react-responsive";
 import { Info } from "@/app/_components/icons/Info";
@@ -105,7 +105,7 @@ export function ModalImage({
           </FacebookShareButton>
           <TwitterShareButton url={shareUrl}>
             <span className="flex items-center justify-center group top-2 right-2 md:top-4 md:right-4 w-9 h-9 bg-blue-950 text-white rounded-full rounded-tr-none hover:bg-blue-900 overflow-hidden">
-              <TwitterIcon />
+              <XIcon />
             </span>
           </TwitterShareButton>
         </>
