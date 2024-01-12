@@ -6,6 +6,12 @@ import { Xmark } from "iconoir-react";
 import Image, { ImageLoader } from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+} from "react-share";
 import { useMediaQuery } from "react-responsive";
 import { Info } from "@/app/_components/icons/Info";
 import { Modal } from "@/app/_components/Modal";
@@ -14,6 +20,7 @@ type ModalImageProps = {
   open: boolean;
   description?: string;
   url?: string;
+  shareUrl?: string;
 } & React.ComponentProps<typeof Image>;
 
 const imageLoader: ImageLoader = ({ src, width }) => {
@@ -33,6 +40,7 @@ export function ModalImage({
   description,
   open,
   url,
+  shareUrl,
   ...props
 }: ModalImageProps) {
   const router = useRouter();
@@ -85,6 +93,25 @@ export function ModalImage({
       router.back();
     }
   }, [router, url]);
+
+  const renderShareButtons = () => {
+    return (
+      shareUrl && (
+        <>
+          <FacebookShareButton url={shareUrl}>
+            <span className="flex items-center justify-center group top-2 right-2 md:top-4 md:right-4 w-9 h-9 bg-blue-950 text-white rounded-full rounded-tr-none hover:bg-blue-900 overflow-hidden">
+              <FacebookIcon />
+            </span>
+          </FacebookShareButton>
+          <TwitterShareButton url={shareUrl}>
+            <span className="flex items-center justify-center group top-2 right-2 md:top-4 md:right-4 w-9 h-9 bg-blue-950 text-white rounded-full rounded-tr-none hover:bg-blue-900 overflow-hidden">
+              <TwitterIcon />
+            </span>
+          </TwitterShareButton>
+        </>
+      )
+    );
+  };
 
   return (
     <Modal open={open} onClose={onClose}>
@@ -141,6 +168,11 @@ export function ModalImage({
                 <Info className="w-3 h-3 sm:w-4 sm:h-4" />
               </button>
             )}
+            {shareUrl && (
+              <div className="absolute flex gap-1 md:gap-2 left-2 bottom-2 md:left-4 md:bottom-4">
+                {renderShareButtons()}
+              </div>
+            )}
           </motion.div>
           {description && (
             <div className="hidden lg:block bottom-0 bg-white text-slate-900 text-xs md:text-sm p-4 pb-6">
@@ -154,18 +186,18 @@ export function ModalImage({
                   initial={{ transform: "translateY(100%)" }}
                   animate={{ transform: "translateY(0)" }}
                   exit={{ transform: "translateY(100%)" }}
-                  className="lg:hidden absolute bottom-0 left-0 w-full max-h-full bg-white text-slate-900 text-sm p-2 rounded-tl-[4px] rounded-tr-[4px] overflow-auto"
+                  className="lg:hidden absolute bottom-0 left-0 w-full max-h-full bg-white text-slate-900 text-sm px-4 py-2 rounded-tl-[4px] rounded-tr-[4px] overflow-auto"
                 >
                   <div className="sticky top-0 w-full">
                     <button
-                      className="absolute flex items-center justify-center group top-0 right-0 w-8 h-8"
+                      className="absolute flex items-center justify-center group top-0 right-0 w-8 h-8 -mr-2"
                       title="Close description"
                       onClick={closeDescription}
                     >
                       <Xmark className="w-5 h-6 group-hover:scale-75 group-hover:rotate-90 transition-all" />
                     </button>
                   </div>
-                  <div className="p-2 pt-12 pb-20 pr-9">
+                  <div className="pt-12 pb-20">
                     {description}
                     <span className="block w-6 mt-4 border-t border-solid border-blue-950" />
                   </div>

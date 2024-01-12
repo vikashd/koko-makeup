@@ -45,6 +45,7 @@ export default async function PortfolioModal({
       placeholder="blur"
       blurDataURL={imageFile}
       open
+      shareUrl={`${process.env.URL}/image/${id}`}
     />
   );
 }

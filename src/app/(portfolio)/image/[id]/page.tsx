@@ -95,6 +95,7 @@ export default async function PortfolioImage({ params: { id } }: PageProps) {
       placeholder="blur"
       blurDataURL={imageFile}
       open
+      shareUrl={`${process.env.URL}/image/${id}`}
       url="/"
     />
   );
