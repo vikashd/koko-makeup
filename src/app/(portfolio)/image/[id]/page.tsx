@@ -1,5 +1,6 @@
 import { Entry } from "contentful";
 import { Metadata, ResolvingMetadata } from "next";
+import { cache } from "react";
 import { ModalImage } from "@/app/_components/ModalImage";
 import { getPortfolioImage } from "@/app/_ctf/getPortfolioImage";
 import { getGalleries } from "@/app/_ctf/getGalleries";
@@ -9,6 +10,13 @@ import { TypePortfolioImagesSkeleton } from "@/schema";
 interface PageProps {
   params: { id: string };
 }
+
+const getAndFormatImageData = cache(async (id: string) => {
+  const data = await getPortfolioImage(id);
+  const image = formatPortfolioImageData(data);
+
+  return image;
+});
 
 export async function generateStaticParams() {
   const data = await getGalleries({ include: 2 });
@@ -47,8 +55,7 @@ export async function generateMetadata(
   },
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const data = await getPortfolioImage(id);
-  const image = formatPortfolioImageData(data);
+  const image = await getAndFormatImageData(id);
 
   if (!image) {
     return {};
@@ -75,8 +82,7 @@ export async function generateMetadata(
 }
 
 export default async function PortfolioImage({ params: { id } }: PageProps) {
-  const data = await getPortfolioImage(id);
-  const image = formatPortfolioImageData(data);
+  const image = await getAndFormatImageData(id);
 
   if (!image) {
     return null;

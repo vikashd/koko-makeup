@@ -1,12 +1,17 @@
 import { ArrowUpLeft } from "iconoir-react";
 import { Metadata, ResolvingMetadata } from "next";
 import Link from "next/link";
+import { cache } from "react";
 import { getGallery } from "@/app/_ctf/getGallery";
 import { Gallery as GalleryThumbs } from "@/app/_components/Gallery";
 
 interface PageProps {
   params: { id: string };
 }
+
+const getGalleryData = cache(async (id: string) => {
+  return await getGallery({ "sys.id": id });
+});
 
 export async function generateMetadata(
   {
@@ -16,7 +21,7 @@ export async function generateMetadata(
   },
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const data = await getGallery({ "sys.id": id });
+  const data = await getGalleryData(id);
 
   const {
     fields: { entryName, images },
@@ -38,8 +43,8 @@ export async function generateMetadata(
   };
 }
 
-export default async function Gallery({ params }: PageProps) {
-  const data = await getGallery({ "sys.id": params.id });
+export default async function Gallery({ params: { id } }: PageProps) {
+  const data = await getGalleryData(id);
 
   const {
     fields: { images = [], entryName },
@@ -52,7 +57,7 @@ export default async function Gallery({ params }: PageProps) {
           <ArrowUpLeft />
         </Link>
         <h2 className="text-3xl italic">{entryName}</h2>
-        <GalleryThumbs id={params.id} images={images} />
+        <GalleryThumbs id={id} images={images} />
       </div>
     </main>
   );
