@@ -1,5 +1,6 @@
 import { getGalleries } from "@/app/_ctf/getGalleries";
 import { HeaderMenu, type MenuSection, type MenuItem } from "./Menu";
+import { Suspense } from "react";
 
 export default async function MenuSC() {
   const data = await getGalleries({ include: 2, select: ["fields"] });
@@ -27,5 +28,9 @@ export default async function MenuSC() {
     },
   ];
 
-  return <HeaderMenu sections={sections} />;
+  return (
+    <Suspense>
+      <HeaderMenu sections={sections} />
+    </Suspense>
+  );
 }
