@@ -7,6 +7,9 @@ export async function POST(req: NextRequest) {
   }
 
   revalidatePath("/", "layout");
+  revalidatePath("/(portfolio)/gallery/[id]", "layout");
+  revalidatePath("/(portfolio)/image/[id]", "layout");
+  revalidatePath("/about");
 
   return new Response("Success!", { status: 200 });
 }
