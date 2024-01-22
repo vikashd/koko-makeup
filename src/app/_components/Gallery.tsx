@@ -59,7 +59,7 @@ export function Gallery({ id, title, images, firstRowOnly }: GalleryProps) {
   return (
     <div className="my-10">
       {title && (
-        <div className="flex items-center mb-4">
+        <div className="flex items-center mb-10">
           <Link className="group" href={`/gallery/${id}`} scroll>
             <h2 className="italic text-3xl md:text-4xl group-hover:underline">
               {title}
