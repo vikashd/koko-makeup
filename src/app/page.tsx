@@ -2,6 +2,7 @@ import { BLOCKS } from "@contentful/rich-text-types";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import GallerySC from "@/app/_components/GallerySC";
 import { Hero } from "@/app/_components/Hero";
+import { ScrollTo } from "@/app/_components/ScrollTo";
 import { getHero } from "@/app/_ctf/getHero";
 
 export default async function Home() {
@@ -32,9 +33,9 @@ export default async function Home() {
               })}
             </div>
           )}
-          <div id="gallery" className="pt-16">
+          <ScrollTo id="gallery" className="pt-16">
             <GallerySC firstRowOnly />
-          </div>
+          </ScrollTo>
         </div>
       )}
     </>
