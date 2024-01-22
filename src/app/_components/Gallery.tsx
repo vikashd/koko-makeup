@@ -2,7 +2,7 @@
 
 import cx from "classnames";
 import { Entry } from "contentful";
-import { GridPlus, Link as LinkIcon } from "iconoir-react";
+import { ArrowRight, Link as LinkIcon } from "iconoir-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -116,7 +116,11 @@ export function Gallery({ id, title, images, firstRowOnly }: GalleryProps) {
                     className="relative flex items-center justify-center w-full h-full italic text-sm md:text-base text-white backdrop-sepia bg-blue-900/80 hover:bg-blue-900/90 transition-colors"
                     scroll
                   >
-                    <GridPlus width="24px" height="24px" />
+                    <ArrowRight
+                      width="24px"
+                      height="24px"
+                      className="group-hover:translate-x-2 transition-transform"
+                    />
                   </Link>
                 </div>
               );
