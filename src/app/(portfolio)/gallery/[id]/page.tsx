@@ -64,7 +64,7 @@ export default async function Gallery({ params: { id } }: PageProps) {
   return (
     <main className="pt-64">
       <div className="container mx-auto">
-        <Link href="/" className="inline-block -mb-2">
+        <Link href="/#gallery" className="inline-block -mb-2">
           <ArrowUpLeft />
         </Link>
         <h2 className="text-3xl italic">{entryName}</h2>
