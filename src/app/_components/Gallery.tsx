@@ -23,13 +23,16 @@ export function Gallery({ id, title, images, firstRowOnly }: GalleryProps) {
   const desktop = useMediaQuery({ query: "(min-width: 1280px)" });
   const landscape = useMediaQuery({ query: "(min-width: 1024px)" });
   const portrait = useMediaQuery({ query: "(min-width: 768px)" });
-  const [imagesToDisplay, setImagesToDisplay] = useState(images);
+  const [imagesToDisplay, setImagesToDisplay] = useState<
+    GalleryProps["images"]
+  >([]);
   const [columnsDisplayed, setColumnsDisplayed] = useState<number | undefined>(
     undefined
   );
 
   useEffect(() => {
     if (!firstRowOnly) {
+      setImagesToDisplay(images);
       return;
     }
 
@@ -55,6 +58,28 @@ export function Gallery({ id, title, images, firstRowOnly }: GalleryProps) {
       images.length > columns - 1 ? images.slice(0, columns) : images
     );
   }, [firstRowOnly, images, desktop, landscape, portrait]);
+
+  if (firstRowOnly && !imagesToDisplay.length) {
+    return (
+      <div className="my-10">
+        <div className="animate-pulse">
+          {title && <div className="max-w-56 h-[60px] rounded bg-white/10" />}
+          <div className="mt-10">
+            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6 gap-2 md:gap-3">
+              {new Array(columnsDisplayed ?? 1).fill("1").map((_, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="w-full aspect-square rounded bg-white/10"
+                  ></div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="my-10">
